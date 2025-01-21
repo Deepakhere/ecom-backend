@@ -1,0 +1,43 @@
+services:
+  - type: web
+
+    name: ecom-backend
+
+    env: node
+
+    plan: free
+
+    buildCommand: npm install
+
+    startCommand: npm run dev
+
+    branch: main # Adjust if your default branch is different
+
+    region: singapore # Change to your preferred Render region
+
+    autoDeploy: true
+
+    envVars:
+      - key: NODE_ENV
+
+        value: production
+
+      - key: MONGO
+
+        value: "mongodb+srv://deepakgupta:mongodbpaasword@cluster0.xnwuo.mongodb.net/"
+
+      - key: PORT
+
+        value: 8000 # Ensure this matches the port your app listens on
+
+      - key: GOOGLE_CLIENT_ID 
+        value: "53393751069-sjeidu35k8eec0bbeo3sgq8bta421t11.apps.googleusercontent.com"
+
+      - key: GOOGLE_CLIENT_SECRET 
+        value: "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"
+
+      - key: SESSION_SECRET 
+        value: "secret-key-ecommerce"
+
+      - key: GOOGLE_API_KEY 
+        value: "AIzaSyAZ2e7EVvO8m84prOlEHcHp-vzOqv6L99g"
