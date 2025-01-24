@@ -1,7 +1,7 @@
 export const CORS_OPTIONS = {
   origin: "https://deepakhere.github.io",
-  methods: ["POST", "GET", "DELETE", "PUT"],
   credentials: true,
+  methods: ["POST", "GET", "DELETE", "PUT"],
 };
 
 export const SESSION_OPTIONS = {
@@ -11,6 +11,7 @@ export const SESSION_OPTIONS = {
   cookie: {
     secure: false,
     httpOnly: true,
+    sameSite: "lax",
     maxAge: 24 * 60 * 60 * 1000,
   },
 };
