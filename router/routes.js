@@ -32,14 +32,23 @@ routes.post("/save-address", addAddress);
 routes.post("/create-payment-intent", paymentController);
 
 // Check if user is logged in
-routes.get("/isLoggedIn", (req, res) => {
-  // console.log("check", req.session.userData);
-  if (req.session.userData) {
+routes.get("/is-logged-in", (req, res) => {
+  console.log("Session Check:", {
+    sessionExists: !!req.session,
+    userData: req.session?.userData,
+    sessionID: req.sessionID,
+  });
+
+  if (req.session?.userData) {
     return res.json({
       isValid: true,
+      user: req.session.userData,
     });
   } else {
-    res.status(401).json({ error: "Not authenticated" });
+    res.status(401).json({
+      isValid: false,
+      error: "Not authenticated",
+    });
   }
 });
 
