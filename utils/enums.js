@@ -1,5 +1,5 @@
 export const CORS_OPTIONS = {
-  origin: "http://localhost:5500",
+  origin: "https://deepakhere.github.io",
   methods: ["POST", "GET", "DELETE", "PUT"],
   credentials: true,
 };
