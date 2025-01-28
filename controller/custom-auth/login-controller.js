@@ -9,7 +9,7 @@ const login = async (req, res) => {
         id: user._id,
         email: user.email,
       };
-
+      req.session.save();
       console.log("Session Data Set:", req.session.userData);
       res.json({ isSuccess: true, message: "Login Successful", user });
     } else {

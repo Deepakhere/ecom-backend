@@ -1,5 +1,5 @@
 export const CORS_OPTIONS = {
-  origin: "https://deepakhere.github.io",
+  origin: "http://localhost:4000",
   credentials: true,
   methods: ["POST", "GET", "DELETE", "PUT"],
 };
@@ -10,8 +10,8 @@ export const SESSION_OPTIONS = {
   saveUninitialized: false,
   cookie: {
     secure: false,
-    httpOnly: true,
-    sameSite: "lax",
+    // httpOnly: false,
+    // sameSite: "lax",
     maxAge: 24 * 60 * 60 * 1000,
   },
 };

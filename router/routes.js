@@ -9,6 +9,7 @@ import {
   authStatus,
   isAuthenticated,
 } from "../controller/google-auth/google-auth.js";
+import getAddressDetails from "../controller/address/address-details.js";
 
 const routes = express.Router();
 
@@ -27,6 +28,7 @@ routes.get("/auth/google/callback", googleCallback);
 
 // Address routes
 routes.post("/save-address", addAddress);
+routes.get("/get-address", getAddressDetails);
 
 // payment routes
 routes.post("/create-payment-intent", paymentController);
