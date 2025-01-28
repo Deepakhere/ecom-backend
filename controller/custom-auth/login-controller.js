@@ -11,7 +11,7 @@ const login = async (req, res) => {
       };
 
       console.log("Session Data Set:", req.session.userData);
-      res.json({ isSuccess: true, message: "Login Successful" });
+      res.json({ isSuccess: true, message: "Login Successful", user });
     } else {
       res.json({ isSuccess: false, message: "Password Incorrect" });
     }
