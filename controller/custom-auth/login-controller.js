@@ -1,24 +1,42 @@
 import UserModel from "../../models/user-custom-auth-schema/index.js";
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await UserModel.findOne({ email: email });
-  if (user) {
-    if (user.password === password) {
-      req.session.userData = {
-        id: user._id,
-        email: user.email,
-      };
-      req.session.save();
-      console.log("Session Data Set:", req.session.userData);
-      res.json({ isSuccess: true, message: "Login Successful", user });
-    } else {
-      res.json({ isSuccess: false, message: "Password Incorrect" });
+  try {
+    const { email, password } = req.body;
+
+    const user = await UserModel.findOne({ email: email });
+    if (!user) {
+      return res.status(404).json({
+        isSuccess: false,
+        message: "User not found",
+      });
     }
-  } else {
+
+    if (user.password !== password) {
+      return res.status(401).json({
+        isSuccess: false,
+        message: "Password Incorrect",
+      });
+    }
+
+    // Set session data
+    req.session.userData = {
+      id: user._id,
+      email: user.email,
+    };
+
+    // Wait for session to be saved
+    await new Promise((resolve) => req.session.save(resolve));
+
     res.json({
+      isSuccess: true,
+      message: "Login Successful",
+      access_token: req.sessionID,
+    });
+  } catch (error) {
+    res.status(500).json({
       isSuccess: false,
-      message: "User not found",
+      message: "Internal server error",
     });
   }
 };

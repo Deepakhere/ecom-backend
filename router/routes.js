@@ -9,6 +9,7 @@ import {
   authStatus,
 } from "../controller/google-auth/google-auth.js";
 import getAddressDetails from "../controller/address/address-details.js";
+import authMiddleware from "../middleware/auth.js";
 
 const routes = express.Router();
 
@@ -27,29 +28,16 @@ routes.get("/auth/google/callback", googleCallback);
 
 // Address routes
 routes.post("/save-address", addAddress);
-routes.get("/get-address", getAddressDetails);
+routes.get("/get-address", authMiddleware,getAddressDetails);
 
 // payment routes
 routes.post("/create-payment-intent", paymentController);
 
 // Check if user is logged in
-routes.get("/is-logged-in", (req, res) => {
-  console.log("Session Check:", {
-    session: req.session,
-    sessionID: req.sessionID,
+routes.get("/is-logged-in", authMiddleware, (req, res) => {
+  res.send({
+    isValid: true,
   });
-
-  if (req.sessionID) {
-    return res.json({
-      isValid: true,
-      user: req.session.userData,
-    });
-  } else {
-    res.status(401).json({
-      isValid: false,
-      error: "Not authenticated",
-    });
-  }
 });
 
 routes.get("/about", (req, res) => {
