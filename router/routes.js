@@ -7,7 +7,6 @@ import {
   googleAuth,
   googleCallback,
   authStatus,
-  isAuthenticated,
 } from "../controller/google-auth/google-auth.js";
 import getAddressDetails from "../controller/address/address-details.js";
 
@@ -36,12 +35,11 @@ routes.post("/create-payment-intent", paymentController);
 // Check if user is logged in
 routes.get("/is-logged-in", (req, res) => {
   console.log("Session Check:", {
-    sessionExists: !!req.session,
-    userData: req.session?.userData,
+    session: req.session,
     sessionID: req.sessionID,
   });
 
-  if (req.session?.userData) {
+  if (req.sessionID) {
     return res.json({
       isValid: true,
       user: req.session.userData,
